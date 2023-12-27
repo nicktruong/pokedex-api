@@ -40,5 +40,5 @@ export class GotAdminDto extends ActionedBaseDto {
 
 export class GotAdminDetailDto extends GotAdminDto {
   @ApiProperty({ isArray: true })
-  sessions: GotAdminSessionDto;
+  sessions: GotAdminSessionDto[];
 }

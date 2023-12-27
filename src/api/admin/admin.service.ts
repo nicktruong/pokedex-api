@@ -15,12 +15,15 @@ import type {
   CreatedAdminDto,
   GotAdminDetailDto,
 } from './dto';
+import { TokenService } from '../token/token.service';
+import { UserRole } from '@/common/enums';
 
 @Injectable()
 export class AdminService {
   constructor(
     @InjectRepository(Admin)
     private adminRepository: AdminRepository,
+    private tokenService: TokenService,
   ) {}
 
   public async create(data: CreateAdminDto): Promise<CreatedAdminDto> {
@@ -63,8 +66,12 @@ export class AdminService {
 
   public async getDetailById(id: string): Promise<GotAdminDetailDto> {
     const admin = await this.adminRepository.findOneBy({ id });
+    const sessions = await this.tokenService.getAllByUser({
+      id,
+      role: UserRole.ADMIN,
+    });
 
-    return admin.toResponse();
+    return admin.toResponseHavingSessions(sessions);
   }
 
   private async handleUpdateAdmin({

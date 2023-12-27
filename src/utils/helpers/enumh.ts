@@ -20,9 +20,7 @@ function getFirstKey<E>(data: E): string | unknown {
 }
 
 function getValuesAndToString<E>(data: E): string[] {
-  return Object.values(data)
-    .filter((elm) => !isNaN(Number(elm)))
-    .map((elm) => elm.toString());
+  return Object.values(data).map((elm) => elm.toString());
 }
 export default {
   getFirstKey,

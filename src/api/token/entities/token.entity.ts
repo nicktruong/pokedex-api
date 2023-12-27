@@ -34,7 +34,7 @@ export class Token extends BaseEntity {
     if (
       entity.isValidFieldBeforeParse({ data: UserRole, value: plainUserRole })
     ) {
-      this.userRole = Number(UserRole?.[plainUserRole]);
+      this.userRole = UserRole?.[plainUserRole];
     }
   }
 

@@ -40,5 +40,5 @@ export class GotCustomerDto extends ActionedBaseDto {
 
 export class GotCustomerDetailDto extends GotCustomerDto {
   @ApiProperty({ isArray: true })
-  sessions: GotCustomerSessionDto;
+  sessions: GotCustomerSessionDto[];
 }
