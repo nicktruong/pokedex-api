@@ -11,7 +11,7 @@ export class GotPokemonDto {
   id: number;
 
   @ApiProperty()
-  type: string[];
+  types: string[];
 }
 
 class GotPokemonPaginationDto {

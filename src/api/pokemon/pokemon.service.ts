@@ -30,7 +30,7 @@ export class PokemonService {
             name: data.name,
             imgSrc: data.sprites.other.dream_world.front_default,
             id: data.id,
-            type: data.types.map(({ type }) => type.name),
+            types: data.types.map(({ type }) => type.name),
           })),
       ),
     );
