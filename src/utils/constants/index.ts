@@ -5,10 +5,4 @@ import Exception from './exception';
 const ROLES_KEY = 'roles';
 const IS_PUBLIC_KEY = 'isPublic';
 
-const Env = {
-  STAGING: 'staging',
-  PRODUCTION: 'production',
-  DEVELOPMENT: 'development',
-};
-
-export { ROLES_KEY, IS_PUBLIC_KEY, Env, Time, Regex, Exception };
+export { ROLES_KEY, IS_PUBLIC_KEY, Time, Regex, Exception };
