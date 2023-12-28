@@ -17,8 +17,21 @@ export class PokemonController {
   @ApiQuery({ name: 'limit', required: false })
   @ApiQuery({ name: 'offset', required: false })
   public async getPagination(
-    @Query('limit', new IntConstraintPipe({ min: 1, max: 100 })) limit: number,
-    @Query('offset', new IntConstraintPipe({ min: 0 })) offset: number,
+    @Query(
+      'limit',
+      new IntConstraintPipe({
+        min: 1,
+        max: 100,
+        optional: true,
+        defaultValue: 12,
+      }),
+    )
+    limit: number,
+    @Query(
+      'offset',
+      new IntConstraintPipe({ min: 0, optional: true, defaultValue: 0 }),
+    )
+    offset: number,
   ): Promise<GotPokemonPaginationResultDto> {
     const results = await this.pokemonService.getPagination({ limit, offset });
     return results;
