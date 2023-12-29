@@ -66,6 +66,7 @@ export class AdminService {
 
   public async getDetailById(id: string): Promise<GotAdminDetailDto> {
     const admin = await this.adminRepository.findOneBy({ id });
+
     const sessions = await this.tokenService.getAllByUser({
       id,
       role: UserRole.ADMIN,
