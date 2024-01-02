@@ -45,12 +45,9 @@ export class AuthService {
 
     const userService = services[userInfo.role];
 
-    const { email, phoneNumber } = userInfo;
+    const { email } = userInfo;
 
-    const user = await userService.findOneByEmailOrPhoneNumber({
-      email,
-      phoneNumber,
-    });
+    const user = await userService.findOneByEmail(email);
 
     if (user) {
       throw new UserAlreadyException();

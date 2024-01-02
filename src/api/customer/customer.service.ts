@@ -27,12 +27,9 @@ export class CustomerService {
   ) {}
 
   public async create(data: CreateCustomerDto): Promise<CreatedCustomerDto> {
-    const { email, phoneNumber } = data;
+    const { email } = data;
 
-    const customer = await this.findOneByEmailOrPhoneNumber({
-      email,
-      phoneNumber,
-    });
+    const customer = await this.findOneByEmail(email);
     if (customer) {
       throw new UserAlreadyException();
     }
@@ -46,16 +43,6 @@ export class CustomerService {
 
   public async findOneByEmail(email: string): Promise<Customer> {
     return this.customerRepository.findOneBy({ email });
-  }
-
-  public async findOneByEmailOrPhoneNumber({
-    email,
-    phoneNumber,
-  }: {
-    email?: string;
-    phoneNumber: string;
-  }): Promise<Customer> {
-    return this.customerRepository.findOneBy([{ email }, { phoneNumber }]);
   }
 
   public async getAll(): Promise<GotCustomerDto[]> {
@@ -82,18 +69,6 @@ export class CustomerService {
     customer: Customer;
     data: UpdateCustomerDto;
   }): Promise<Customer> {
-    const { phoneNumber } = data;
-
-    if (phoneNumber && phoneNumber !== customer?.phoneNumber) {
-      const existedCustomer = await this.findOneByEmailOrPhoneNumber({
-        phoneNumber,
-      });
-
-      if (existedCustomer) {
-        throw new UserAlreadyException();
-      }
-    }
-
     const updatedCustomer = await this.customerRepository.create({
       ...customer,
       ...data,

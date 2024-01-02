@@ -1,14 +1,5 @@
-import {
-  IsString,
-  MinLength,
-  IsNotEmpty,
-  IsPhoneNumber,
-  IsOptional,
-} from 'class-validator';
+import { IsString, MinLength, IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
-import { Gender } from '@/common/enums';
-import { IsOnlyDate, IsValidGender } from '@/decorators';
 
 export class UpdateAdminDto {
   @IsString()
@@ -25,34 +16,5 @@ export class UpdateAdminDto {
   @IsOptional()
   @IsNotEmpty()
   @ApiProperty({ required: false })
-  firstName?: string;
-
-  @IsString()
-  @IsOptional()
-  @IsNotEmpty()
-  @ApiProperty({ required: false })
-  lastName?: string;
-
-  @IsOptional()
-  @IsValidGender()
-  @ApiProperty({
-    enum: Gender,
-    required: false,
-  })
-  gender?: Gender;
-
-  @IsOptional()
-  @IsNotEmpty()
-  @IsOnlyDate()
-  @ApiProperty({
-    format: 'date',
-    required: false,
-  })
-  bod?: Date;
-
-  @IsNotEmpty()
-  @IsOptional()
-  @IsPhoneNumber('VN')
-  @ApiProperty({ required: false })
-  phoneNumber?: string;
+  name?: string;
 }

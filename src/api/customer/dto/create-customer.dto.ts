@@ -1,15 +1,5 @@
-import {
-  IsEmail,
-  IsString,
-  MinLength,
-  IsNotEmpty,
-  IsOptional,
-  IsPhoneNumber,
-} from 'class-validator';
+import { IsEmail, IsString, MinLength, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
-import { Gender } from '@/common/enums';
-import { IsOnlyDate, IsValidGender } from '@/decorators';
 
 export class CreateCustomerDto {
   @IsEmail()
@@ -29,38 +19,7 @@ export class CreateCustomerDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    example: 'Lorem',
+    example: 'John Doe',
   })
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 'Lorem',
-  })
-  lastName: string;
-
-  @IsOptional()
-  @IsValidGender()
-  @ApiProperty({
-    enum: Gender,
-    required: false,
-  })
-  gender?: Gender;
-
-  @IsOptional()
-  @IsOnlyDate()
-  @IsNotEmpty()
-  @ApiProperty({
-    format: 'date',
-    required: false,
-  })
-  bod?: Date;
-
-  @IsNotEmpty()
-  @IsPhoneNumber('VN')
-  @ApiProperty({
-    example: '0123456789',
-  })
-  phoneNumber: string;
+  name: string;
 }
