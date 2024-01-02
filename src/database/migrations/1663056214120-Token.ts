@@ -27,7 +27,7 @@ export class Token1663056214120 implements MigrationInterface {
             type: 'enum',
             enum: enumh.getValuesAndToString<typeof UserRole>(UserRole),
             enumName: 'customer_user_role_enum',
-            default: `'0'::customer_user_role_enum`,
+            default: `'CUSTOMER'::customer_user_role_enum`,
           },
           {
             name: 'access_token',

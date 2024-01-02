@@ -44,7 +44,7 @@ export class Customer extends BaseEntity {
       if (
         entity.isValidFieldBeforeParse({ data: Gender, value: plainGender })
       ) {
-        this.gender = Number(Gender?.[plainGender]);
+        this.gender = Gender?.[plainGender];
       }
     }
   }
@@ -74,8 +74,8 @@ export class Customer extends BaseEntity {
     this,
     'password' | 'setInsertingData' | 'setUpdatingData'
   > & {
-    role: string;
-    gender: string;
+    role: UserRole;
+    gender: Gender;
   } {
     return {
       ...omit(['password', 'setInsertingData', 'setUpdatingData'], this),
@@ -88,8 +88,8 @@ export class Customer extends BaseEntity {
     this,
     'password' | 'setInsertingData' | 'setUpdatingData'
   > & {
-    role: string;
-    gender: string;
+    role: UserRole;
+    gender: Gender;
     sessions: Token[];
   } {
     return {
