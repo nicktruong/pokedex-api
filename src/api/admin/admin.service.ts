@@ -27,12 +27,9 @@ export class AdminService {
   ) {}
 
   public async create(data: CreateAdminDto): Promise<CreatedAdminDto> {
-    const { email, phoneNumber } = data;
+    const { email } = data;
 
-    const admin = await this.findOneByEmailOrPhoneNumber({
-      email,
-      phoneNumber,
-    });
+    const admin = await this.findOneByEmail(email);
     if (admin) {
       throw new UserAlreadyException();
     }
@@ -48,16 +45,6 @@ export class AdminService {
     return this.adminRepository.findOneBy({ email });
   }
 
-  public async findOneByEmailOrPhoneNumber({
-    email,
-    phoneNumber,
-  }: {
-    email?: string;
-    phoneNumber: string;
-  }): Promise<Admin> {
-    return this.adminRepository.findOneBy([{ email }, { phoneNumber }]);
-  }
-
   public async getAll(): Promise<GotAdminDto[]> {
     const admins = await this.adminRepository.find();
 
@@ -66,6 +53,7 @@ export class AdminService {
 
   public async getDetailById(id: string): Promise<GotAdminDetailDto> {
     const admin = await this.adminRepository.findOneBy({ id });
+
     const sessions = await this.tokenService.getAllByUser({
       id,
       role: UserRole.ADMIN,
@@ -81,18 +69,6 @@ export class AdminService {
     admin: Admin;
     data: UpdateAdminDto;
   }): Promise<Admin> {
-    const { phoneNumber } = data;
-
-    if (phoneNumber && phoneNumber !== admin?.phoneNumber) {
-      const existedAdmin = await this.findOneByEmailOrPhoneNumber({
-        phoneNumber,
-      });
-
-      if (existedAdmin) {
-        throw new UserAlreadyException();
-      }
-    }
-
     const updatedAdmin = await this.adminRepository.create({
       ...admin,
       ...data,

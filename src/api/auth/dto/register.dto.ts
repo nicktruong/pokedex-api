@@ -3,15 +3,11 @@ import {
   IsString,
   MinLength,
   IsNotEmpty,
-  IsOptional,
-  IsPhoneNumber,
   Matches,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
-import { IsOnlyDate, IsValidGender } from '@/decorators';
 import { enumh } from '@/utils/helpers';
-import { Gender, UserRole } from '@/common/enums';
+import { UserRole } from '@/common/enums';
 
 enum UserRegisterRole {
   CUSTOMER = UserRole.CUSTOMER,
@@ -46,32 +42,6 @@ export class RegisterDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'Lorem' })
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ example: 'Lorem' })
-  lastName: string;
-
-  @IsOptional()
-  @IsOnlyDate()
-  @ApiProperty({
-    format: 'date',
-    required: false,
-  })
-  bod?: Date;
-
-  @IsOptional()
-  @IsValidGender()
-  @ApiProperty({
-    enum: Gender,
-    required: false,
-  })
-  gender?: Gender;
-
-  @IsPhoneNumber('VN')
-  @IsNotEmpty()
-  @ApiProperty({ example: '0123456789' })
-  phoneNumber: string;
+  @ApiProperty({ example: 'John Doe' })
+  name: string;
 }

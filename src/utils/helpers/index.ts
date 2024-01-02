@@ -1,4 +1,4 @@
-import { Env } from '@/utils/constants';
+import Env from '@/utils/constants/env';
 
 import hash from './hash';
 import enumh from './enumh';
